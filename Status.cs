@@ -1,5 +1,5 @@
 public enum Status {
-	publish,
+	Publish,
 	Unpublished,
 	Pending
 }
