@@ -12,7 +12,7 @@ This data structure can be transformed into other data structures that implement
 - ToList()
 - ToDictionary
 - ToHashSet()
-- ToLookup
+- ToLookup "Its a dictionary like structure"
 
 ## Keywords with definition
 
@@ -59,6 +59,8 @@ This data structure can be transformed into other data structures that implement
 - except: Obtiene los elementos que están en una secuencia pero no en la otra.
 
 ## Keywords & extension method
+"average" keyword and other keywords might not exist, only the extension method.
+TODO: categorice the keywords/methods in groups like: aggregation, grouping, basic...
 ```
 from			-
 in				-

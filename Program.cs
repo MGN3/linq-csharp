@@ -18,13 +18,11 @@ public class Program {
 		//double valorDouble = MiEnum.GetValue();
 
 		//Console.WriteLine(valorDouble);
-
 		LinqQueries queries = new LinqQueries();
 
 		IEnumerable<Book> books = queries.GetBooks();
 
 		queries.PrintValues(books);
-
 
 		//FORMA DE HACERLO CON SINTAXIS TRADICIONAL + .ToList() y foreach de cada objeto de la lista.
 		var linqQuery = from element in books
@@ -92,8 +90,6 @@ public class Program {
 		//	ORDER BY PublishedDate DESC
 		//	LIMIT 3;
 
-
-
 		///
 		//Pruebas orderby con la lista de libros
 		var librosOrdenados = from book in books
@@ -105,9 +101,10 @@ public class Program {
 
 		//CONSULTA EXTENSION LINQ método Count o LongCount, devolviendo int o long del número de objetos que cumplen x condiciones.
 		//Es importante tener en cuenta que algunos metodos extension pueden recibir por parámetros condicionales sin necesidad de usar where u otros.
-		long linqQuery5 = books.LongCount(book => book.PageCount>=200 && book.PageCount<=500);
+		long linqQuery5 = books.LongCount(book => book.PageCount >= 200 && book.PageCount <= 500);
 
 		DateTime linqQuery6 = books.Min(book => book.PublishedDate);
+		Book newbook = books.MinBy(book => book.PublishedDate.Year > 2010);
 
 		Console.WriteLine(linqQuery6);
 		//Probando una funcion que devuelve IEnumerable<Book> de todos los libros cuyo título contenga un string.
@@ -115,12 +112,22 @@ public class Program {
 		searchBooks = queries.BookListContainsString("   Advanced   ").ToList();
 		queries.PrintValues(searchBooks);
 
-		///////////// EJERCICIO /////////
+
+		//////LINQ Query using join. The key is that the two collections 
+		///compared are created in the own query thanks to the where clause where we store into two IEnumerables the result of the where clause.
+		var result = from booksAfter2005 in books
+					 join booksPublishedAfter2005 in books
+					 on booksAfter2005.Title equals booksPublishedAfter2005.Title
+					 where booksAfter2005.PageCount >= 500 && booksPublishedAfter2005.PublishedDate.Year > 2005
+					 select booksAfter2005;
+
+
+		///////////// EJERCICIOS EXTRA /////////
 		List<Animal> animales = new List<Animal>();
 		animales.Add(new Animal() { Nombre = "Hormiga", Color = "Rojo" });
 		animales.Add(new Animal() { Nombre = "Lobo", Color = "Gris" });
 		animales.Add(new Animal() { Nombre = "Elefante", Color = "Gris" });
-		animales.Add(new Animal() { Nombre = "Pantegra", Color = "Negro" });
+		animales.Add(new Animal() { Nombre = "Pantera", Color = "Negro" });
 		animales.Add(new Animal() { Nombre = "Gato", Color = "Negro" });
 		animales.Add(new Animal() { Nombre = "Iguana", Color = "Verde" });
 		animales.Add(new Animal() { Nombre = "Sapo", Color = "Verde" });
